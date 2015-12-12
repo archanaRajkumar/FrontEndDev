@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>HackerEarth</title>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+
+<script src="bower_components\angular-local-storage\dist\angular-local-storage.min.js"></script>
+<script src="bower_components/underscore/underscore-min.js"></script>
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"></link>
+<link rel="stylesheet" href="homepage.css"></link>
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+<script src="app.js"></script>
+</head>
+<body  ng-app="HackerearthMock" ng-controller="loadEventController">
+<div class="navbar navbar-default">
+	<span class="navbar-brand">
+		HackerEarth
+	</span>
+    <span class="searchBoxdiv col-sm-offset-3">
+    <span class="glyphicon glyphicon-search"></span>
+    <input type="text" id="searchBox" placeholder="Search Event" ng-model="query">
+</span>
+<span  class="dropdownselect col-md-2"><span>Sort by:</span><select name="singleSelect" ng-model="data.singleSelect">
+      <option value="rating">Rating</option>
+      <option value="like">Liked Events</option>
+    </select>
+</span>
+</div>
+
+<div ng-repeat="event in events|filter:query| orderBy:data.singleSelect">
+	<div class="event col-sm-3 ">
+		<center><h4 class="banner">{{event.name}}</h4><center>
+	  	<div class="container"><img src={{event.image}} class="img img-responsive "></div>
+
+		<div class="details col-md-10 col-md-offset-1">
+			 <a href="#" class="glyphicon glyphicon-thumbs-up" ng-show="event.like" ng-click=toggleLike(event)>Like</a><center>
+			<a href="#" class="glyphicon glyphicon-thumbs-down" ng-show="!event.like" ng-click=toggleLike(event)>dislike</a>
+			<div class="control-group"><h5 class="control-label" >{{event.parent_challenge}}</h5></div>
+		<div class="control-group"><span class="control-label">Ratings:</span>{{event.rating}}</div>
+		<div class="control-group"><span class="control-label">Solved by:</span>{{event.solved_by}}</div>
+		<div class="control-group"><span class="control-label tags"> Tags: </span><span ng-repeat="tag in event.tags"><span class="btn btn-primary btn-sm">{{tag}}</span></span></div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
